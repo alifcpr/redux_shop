@@ -1,10 +1,7 @@
-import { useState } from "react";
-import { Button } from "@mui/material";
+import { Typography } from "@mui/material";
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  return <Button>Button</Button>;
-}
+const App = () => {
+  return <Typography variant="body1">overwrite</Typography>;
+};
 
 export default App;
