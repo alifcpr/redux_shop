@@ -2,7 +2,7 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllProductApi } from "../../services/product.services";
 
 // handle fetchAllProduct
-const fetchAllProduct = createAsyncThunk("products/fetchAllProduct", async () =>
+export const fetchAllProduct = createAsyncThunk("products/fetchAllProduct", async () =>
   getAllProductApi()
 );
 
@@ -21,7 +21,7 @@ const initialState = {
 } satisfies ProductState as ProductState;
 
 // product slice
-const productSlice = createSlice({
+const productsSlice = createSlice({
   name: "product",
   initialState,
   reducers: {},
@@ -45,4 +45,4 @@ const productSlice = createSlice({
   },
 });
 
-export default productSlice.reducer;
+export default productsSlice.reducer;
