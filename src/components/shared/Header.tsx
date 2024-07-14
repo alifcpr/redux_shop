@@ -1,7 +1,23 @@
 import { ShoppingCartOutlined } from "@mui/icons-material";
-import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton, Box } from "@mui/material";
+import { AppDispatch, RootState } from "../../redux/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { changeTheme } from "../../redux/slices/settingSlice";
+import WbSunnyIcon from "@mui/icons-material/WbSunny";
+import ModeNightIcon from "@mui/icons-material/ModeNight";
 
 const Header = () => {
+  // theme
+  const { theme } = useSelector((state: RootState) => state.setting);
+
+  // dispatch
+  const dispatch: AppDispatch = useDispatch();
+
+  // handle change theme mode
+  const handleChangeTheme = () => {
+    dispatch(changeTheme());
+  };
+
   return (
     <AppBar
       color="primary"
@@ -16,9 +32,14 @@ const Header = () => {
         }}
       >
         <Typography variant="h5">Redux Shop</Typography>
-        <IconButton color="primary">
-          <ShoppingCartOutlined />
-        </IconButton>
+        <Box component="div">
+          <IconButton color="primary">
+            <ShoppingCartOutlined />
+          </IconButton>
+          <IconButton onClick={handleChangeTheme} color="primary">
+            {theme === "light" ? <ModeNightIcon /> : <WbSunnyIcon />}
+          </IconButton>
+        </Box>
       </Toolbar>
     </AppBar>
   );

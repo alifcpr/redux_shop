@@ -2,23 +2,24 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllProductApi } from "../../services/product.services";
 
 // handle fetchAllProduct
-export const fetchAllProduct = createAsyncThunk("products/fetchAllProduct", async () =>
-  getAllProductApi()
+export const fetchAllProduct = createAsyncThunk(
+  "products/fetchAllProduct",
+  async () => getAllProductApi()
 );
 
 // product initialState type
-interface ProductState {
+interface IProductState {
   productList: IProduct[];
   loading: boolean;
   error: string;
 }
 
 // initial state
-const initialState = {
+const initialState: IProductState = {
   productList: [],
   loading: false,
   error: "",
-} satisfies ProductState as ProductState;
+};
 
 // product slice
 const productsSlice = createSlice({

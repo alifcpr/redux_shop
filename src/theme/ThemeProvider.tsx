@@ -7,17 +7,24 @@ import {
   createTheme,
 } from "@mui/material";
 import { blue, green, red, yellow } from "@mui/material/colors";
+import { RootState } from "../redux/store/store";
+import { useSelector } from "react-redux";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
 }
 
 const ThemeProvider = ({ children }: ThemeProviderProps) => {
+  // theme
+  const { theme: themeMode } = useSelector((state: RootState) => state.setting);
+
+  // MUI default theme
   const defaultTheme: Theme = createTheme();
 
+  // MUI custome theme
   const customeTheme: ThemeOptions = {
     palette: {
-      mode: "light",
+      mode: themeMode === "dark" ? "dark" : "light",
       primary: {
         light: blue[900],
         main: blue[800],
@@ -47,9 +54,6 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         main: yellow[500],
         dark: yellow[900],
         contrastText: "#fff",
-      },
-      text: {
-        primary: "#fff",
       },
     },
     components: {
