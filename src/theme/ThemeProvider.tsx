@@ -6,7 +6,7 @@ import {
   ThemeOptions,
   createTheme,
 } from "@mui/material";
-import { blue, green, red, yellow } from "@mui/material/colors";
+import { blue, green, grey, red, yellow } from "@mui/material/colors";
 import { RootState } from "../redux/store/store";
 import { useSelector } from "react-redux";
 
@@ -26,15 +26,11 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     palette: {
       mode: themeMode === "dark" ? "dark" : "light",
       primary: {
-        light: blue[900],
         main: blue[800],
-        dark: blue[900],
         contrastText: "#fff",
       },
       secondary: {
-        light: red[100],
-        main: red[500],
-        dark: red[900],
+        main: grey[900],
         contrastText: "#fff",
       },
       success: {
@@ -70,6 +66,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         },
       },
 
+      // iconButton component
       MuiIconButton: {
         styleOverrides: {
           root: {
@@ -116,6 +113,13 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
               padding: "5px 10px",
               maxWidth: "1920px",
             },
+          },
+        },
+      },
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            boxShadow: "none",
           },
         },
       },
@@ -177,6 +181,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   };
 
   const theme = createTheme(customeTheme);
+
   return (
     <StyledEngineProvider injectFirst>
       <MuiThemeProvider theme={theme}>

@@ -8,7 +8,7 @@ import ModeNightIcon from "@mui/icons-material/ModeNight";
 
 const Header = () => {
   // theme
-  const { theme } = useSelector((state: RootState) => state.setting);
+  const { theme: themeMode } = useSelector((state: RootState) => state.setting);
 
   // dispatch
   const dispatch: AppDispatch = useDispatch();
@@ -20,15 +20,21 @@ const Header = () => {
 
   return (
     <AppBar
-      color="primary"
       component="abbr"
       position="static"
-      sx={{ m: "0px" }}
+      enableColorOnDark
+      sx={(theme) => ({
+        backgroundColor:
+          theme.palette.mode === "dark"
+            ? theme.palette.secondary.main
+            : theme.palette.primary.main,
+      })}
     >
       <Toolbar
         sx={{
           display: "flex",
           justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
         <Typography variant="h5">Redux Shop</Typography>
@@ -37,7 +43,7 @@ const Header = () => {
             <ShoppingCartOutlined />
           </IconButton>
           <IconButton onClick={handleChangeTheme} color="primary">
-            {theme === "light" ? <ModeNightIcon /> : <WbSunnyIcon />}
+            {themeMode === "light" ? <ModeNightIcon /> : <WbSunnyIcon />}
           </IconButton>
         </Box>
       </Toolbar>
