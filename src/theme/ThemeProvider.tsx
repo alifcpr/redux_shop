@@ -1,6 +1,12 @@
 import { ThemeProvider as MuiThemeProvider } from "@emotion/react";
-import { Theme, ThemeOptions, createTheme } from "@mui/material";
-import { blue, green, grey, red, yellow } from "@mui/material/colors";
+import {
+  CssBaseline,
+  StyledEngineProvider,
+  Theme,
+  ThemeOptions,
+  createTheme,
+} from "@mui/material";
+import { blue, green, red, yellow } from "@mui/material/colors";
 
 interface ThemeProviderProps {
   children: React.ReactNode;
@@ -13,15 +19,15 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
     palette: {
       mode: "light",
       primary: {
-        light: blue[200],
+        light: blue[900],
         main: blue[800],
         dark: blue[900],
         contrastText: "#fff",
       },
       secondary: {
-        light: grey[100],
-        main: grey[500],
-        dark: grey[900],
+        light: red[100],
+        main: red[500],
+        dark: red[900],
         contrastText: "#fff",
       },
       success: {
@@ -42,20 +48,32 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         dark: yellow[900],
         contrastText: "#fff",
       },
+      text: {
+        primary: "#fff",
+      },
     },
-
     components: {
       // Button component
       MuiButton: {
         styleOverrides: {
           root: {
             boxShadow: "none",
+            color: "#fff",
             "&:hover": {
               boxShadow: "none",
             },
           },
         },
       },
+
+      MuiIconButton: {
+        styleOverrides: {
+          root: {
+            color: "#fff",
+          },
+        },
+      },
+
       // AppBar component
       MuiAppBar: {
         styleOverrides: {
@@ -155,7 +173,14 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
   };
 
   const theme = createTheme(customeTheme);
-  return <MuiThemeProvider theme={theme}>{children}</MuiThemeProvider>;
+  return (
+    <StyledEngineProvider injectFirst>
+      <MuiThemeProvider theme={theme}>
+        <CssBaseline enableColorScheme />
+        {children}
+      </MuiThemeProvider>
+    </StyledEngineProvider>
+  );
 };
 
 export default ThemeProvider;
