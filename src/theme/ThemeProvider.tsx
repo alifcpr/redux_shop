@@ -30,6 +30,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         contrastText: "#fff",
       },
       secondary: {
+        light: grey[200],
         main: grey[900],
         contrastText: "#fff",
       },
@@ -158,11 +159,11 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         textAlign: "justify",
         // mobile size
         [defaultTheme.breakpoints.only("xs")]: {
-          fontSize: "14px",
+          fontSize: "16px",
         },
         // tablet size
         [defaultTheme.breakpoints.only("sm")]: {
-          fontSize: "15px",
+          fontSize: "17px",
         },
         // tablet & desktop size
         [defaultTheme.breakpoints.only("md")]: {
@@ -170,7 +171,7 @@ const ThemeProvider = ({ children }: ThemeProviderProps) => {
         },
         // big desktop size
         [defaultTheme.breakpoints.only("lg")]: {
-          fontSize: "22px",
+          fontSize: "17px",
         },
         // TV size
         [defaultTheme.breakpoints.only("xl")]: {

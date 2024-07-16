@@ -1,10 +1,55 @@
-import { Typography } from "@mui/material";
+import { Grid, Paper, Skeleton, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store/store";
+import { useEffect } from "react";
+import { fetchAllProduct } from "../../redux/slices/productsSlice";
+import ProductCart from "../../components/carts/ProductCart";
+import { v4 as uuidv4 } from "uuid";
 
 const HomePage = () => {
+  // dispatch
+  const dispatch: AppDispatch = useDispatch();
+
+  // products
+  const { productList, loading, error } = useSelector(
+    (state: RootState) => state.products
+  );
+
+  // dispatch fetchAllProduct when mount component
+  useEffect(() => {
+    dispatch(fetchAllProduct());
+  }, []);
+
   return (
-    <Typography>
-      <p className="bg-primary-main">HI</p>
-    </Typography>
+    <Grid container rowGap={2} className="mt-4">
+      <Grid item xs={12} md={10}>
+        <Paper className="p-3 grid grid-cols-12 gap-4">
+          {/* show loading */}
+          {loading &&
+            !error &&
+            Array.from({ length: 8 }).map(() => (
+              <Skeleton
+                variant="rectangular"
+                key={uuidv4()}
+                className="col-span-12 rounded-md md:col-span-6 xl:col-span-4 2xl:col-span-3 h-[488px]"
+              />
+            ))}
+          {/* show error */}
+          {!loading && error && <Typography variant="h1">{error}</Typography>}
+          {/* show item */}
+          {!loading && productList && productList.length > 0 ? (
+            productList.map((product) => (
+              <ProductCart key={uuidv4()} data={product} />
+            ))
+          ) : (
+            <Typography variant="h1">There is not any item</Typography>
+          )}
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={2}>
+        <Paper className="p-3">One</Paper>
+      </Grid>
+    </Grid>
   );
 };
 
