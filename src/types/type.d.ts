@@ -10,3 +10,7 @@ interface IProduct {
     count: number;
   };
 }
+
+interface ICart extends IProduct {
+  quantity: number;
+}

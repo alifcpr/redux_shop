@@ -2,13 +2,53 @@ import { Box, Button, Rating, Tooltip, Typography } from "@mui/material";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { AppDispatch, RootState } from "../../redux/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  decreamentProduct,
+  increamentProduct,
+  removeCart,
+} from "../../redux/slices/cartSlice";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 interface ProductCartProps {
   data: IProduct;
 }
 
 const ProductCart = ({ data }: ProductCartProps) => {
+  // product info
   const { title, image, rating, price, category } = data;
+
+  // current product data
+  const { carts } = useSelector((state: RootState) => state.carts);
+  const currentProduct = carts.find((carts: ICart) => carts.id === data.id);
+
+  // dispatch
+  const dispatch: AppDispatch = useDispatch();
+
+  // add product to cart
+  const handleAddProductToCart = () => {
+    dispatch(addToCart(data));
+  };
+
+  // remove product from cart
+  const handleRemoveProductFromCart = () => {
+    dispatch(removeCart(data));
+  };
+
+  // increament product in cart
+  const handleIncreamentProduct = () => {
+    dispatch(increamentProduct(data));
+  };
+
+  // decreament product in cart
+  const handleDecreamentProduct = () => {
+    dispatch(decreamentProduct(data));
+  };
+
   return (
     <Box
       component="div"
@@ -60,9 +100,35 @@ const ProductCart = ({ data }: ProductCartProps) => {
           <LocalOfferIcon />
           <Typography variant="h6">{price.toLocaleString("en")}</Typography>
         </Box>
-        <Button color="primary" className="mt-4" variant="contained">
-          Add To Cart
-        </Button>
+        {currentProduct ? (
+          <Box
+            component="div"
+            className="flex mt-4 items-center justify-between"
+          >
+            {currentProduct.quantity > 1 ? (
+              <Button onClick={handleDecreamentProduct} variant="contained">
+                <RemoveIcon />
+              </Button>
+            ) : (
+              <Button onClick={handleRemoveProductFromCart} variant="contained">
+                <DeleteIcon />
+              </Button>
+            )}
+            <Typography variant="body1">{currentProduct.quantity}</Typography>
+            <Button onClick={handleIncreamentProduct} variant="contained">
+              <AddIcon />
+            </Button>
+          </Box>
+        ) : (
+          <Button
+            onClick={handleAddProductToCart}
+            color="primary"
+            className="mt-4"
+            variant="contained"
+          >
+            Add To Cart
+          </Button>
+        )}
       </Box>
     </Box>
   );
