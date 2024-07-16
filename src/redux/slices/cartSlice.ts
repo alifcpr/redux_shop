@@ -11,7 +11,8 @@ interface ICartState {
 // cart initialState
 const initialState: ICartState = {
   carts: JSON.parse(localStorage.getItem("carts")!) ?? [],
-  total: 0,
+  total:
+    calculateCartsTotalCount(JSON.parse(localStorage.getItem("carts")!)) ?? 0,
 };
 
 // cartSlice
