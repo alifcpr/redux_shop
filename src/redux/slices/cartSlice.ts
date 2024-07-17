@@ -1,18 +1,24 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
-import { calculateCartsTotalCount } from "../../utils/util";
+import {
+  calculateCartsPrice,
+  calculateCartsTotalCount,
+} from "../../utils/util";
 
 // cart initialState type
 interface ICartState {
   carts: ICart[];
-  total: number;
+  totalCount: number;
+  priceAll: number;
 }
 
 // cart initialState
 const initialState: ICartState = {
   carts: JSON.parse(localStorage.getItem("carts")!) ?? [],
-  total:
+  totalCount:
     calculateCartsTotalCount(JSON.parse(localStorage.getItem("carts")!)) ?? 0,
+  priceAll:
+    calculateCartsPrice(JSON.parse(localStorage.getItem("carts")!)) ?? 0,
 };
 
 // cartSlice
@@ -32,7 +38,8 @@ const cartSlice = createSlice({
       }
       state.carts.push({ ...action.payload, quantity: 1 });
       toast.success("The product has been added to the cart");
-      state.total = calculateCartsTotalCount(state.carts);
+      state.totalCount = calculateCartsTotalCount(state.carts);
+      state.priceAll = calculateCartsPrice(state.carts);
       localStorage.setItem("carts", JSON.stringify(state.carts));
     },
 
@@ -43,7 +50,8 @@ const cartSlice = createSlice({
       );
       state.carts = newCarts;
       localStorage.setItem("carts", JSON.stringify(newCarts));
-      state.total = calculateCartsTotalCount(state.carts);
+      state.totalCount = calculateCartsTotalCount(state.carts);
+      state.priceAll = calculateCartsPrice(state.carts);
       toast.success("The desired product was removed from the shopping cart");
     },
 
@@ -53,7 +61,8 @@ const cartSlice = createSlice({
         (cart: ICart) => cart.id === action.payload.id
       );
       state.carts[cartIndex].quantity++;
-      state.total = calculateCartsTotalCount(state.carts);
+      state.totalCount = calculateCartsTotalCount(state.carts);
+      state.priceAll = calculateCartsPrice(state.carts);
       localStorage.setItem("carts", JSON.stringify(state.carts));
       toast.success("increament product successfull");
     },
@@ -63,7 +72,8 @@ const cartSlice = createSlice({
         (cart: ICart) => cart.id === action.payload.id
       );
       state.carts[cartIndex].quantity--;
-      state.total = calculateCartsTotalCount(state.carts);
+      state.totalCount = calculateCartsTotalCount(state.carts);
+      state.priceAll = calculateCartsPrice(state.carts);
       localStorage.setItem("carts", JSON.stringify(state.carts));
       toast.success("decreament product successfull");
     },

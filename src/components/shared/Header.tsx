@@ -18,7 +18,7 @@ const Header = () => {
   // theme
   const { theme: themeMode } = useSelector((state: RootState) => state.setting);
 
-  const { total } = useSelector((state: RootState) => state.carts);
+  const { totalCount } = useSelector((state: RootState) => state.carts);
 
   // dispatch
   const dispatch: AppDispatch = useDispatch();
@@ -49,7 +49,7 @@ const Header = () => {
       >
         <Typography variant="h5">Redux Shop</Typography>
         <Box component="div" className="flex items-center gap-x-4">
-          <Badge badgeContent={total} color="secondary">
+          <Badge badgeContent={totalCount} color="secondary">
             <Link to={"/shopping-cart"}>
               <IconButton color="primary">
                 <ShoppingCartOutlined />
