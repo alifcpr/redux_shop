@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeTheme } from "../../redux/slices/settingSlice";
 import WbSunnyIcon from "@mui/icons-material/WbSunny";
 import ModeNightIcon from "@mui/icons-material/ModeNight";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   // theme
@@ -49,9 +50,11 @@ const Header = () => {
         <Typography variant="h5">Redux Shop</Typography>
         <Box component="div" className="flex items-center gap-x-4">
           <Badge badgeContent={total} color="secondary">
-            <IconButton color="primary">
-              <ShoppingCartOutlined />
-            </IconButton>
+            <Link to={"/shopping-cart"}>
+              <IconButton color="primary">
+                <ShoppingCartOutlined />
+              </IconButton>
+            </Link>
           </Badge>
 
           <IconButton onClick={handleChangeTheme} color="primary">
