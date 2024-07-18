@@ -7,20 +7,55 @@ import ProductCart from "../../components/carts/ProductCart";
 import { v4 as uuidv4 } from "uuid";
 import Search from "../../components/Search";
 import HomePageSideBar from "../../components/HomePageSideBar";
+import { useSearchParams } from "react-router-dom";
 
 const HomePage = () => {
+  // searchParams
+  const [searchParams] = useSearchParams();
+
+  // queries
+  const searchQuery = searchParams.get("search") ?? "";
+  const categoryQuery = searchParams.get("category") ?? "";
+
   // dispatch
   const dispatch: AppDispatch = useDispatch();
 
   // products
-  const { productList, loading, error } = useSelector(
-    (state: RootState) => state.products
-  );
+  const {
+    productList: products,
+    loading,
+    error,
+  } = useSelector((state: RootState) => state.products);
 
   // dispatch fetchAllProduct when mount component
   useEffect(() => {
     dispatch(fetchAllProduct());
   }, []);
+
+  let productList = products;
+
+  // filter by category
+  if (searchQuery && !categoryQuery) {
+    productList = productList.filter((product) =>
+      product.title.toLowerCase().trim().includes(searchQuery)
+    );
+  }
+
+  // filter by search
+  if (!searchQuery && categoryQuery) {
+    productList = productList.filter(
+      (product) => product.category === categoryQuery
+    );
+  }
+
+  // filter by search and category
+  if (searchQuery && categoryQuery) {
+    productList = productList
+      .filter((product) =>
+        product.title.toLowerCase().trim().includes(searchQuery)
+      )
+      .filter((product) => product.category === categoryQuery);
+  }
 
   return (
     <Grid container gap={2} className="mt-4">
