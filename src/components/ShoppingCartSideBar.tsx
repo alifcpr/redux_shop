@@ -4,10 +4,16 @@ import { AppDispatch, RootState } from "../redux/store/store";
 import { useState } from "react";
 import { clearShoppingCart } from "../redux/slices/cartSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ShoppingCartSideBar = () => {
   // modal state
   const [open, setOpen] = useState<boolean>(false);
+  const [paymentLoading, setPaymentLoading] = useState<boolean>(false);
+
+  // navigate
+  const navigate = useNavigate();
 
   // dispatch
   const dispatch: AppDispatch = useDispatch();
@@ -22,6 +28,18 @@ const ShoppingCartSideBar = () => {
     dispatch(clearShoppingCart());
     toast.success("All products have been removed from the shopping cart");
     setOpen(false);
+  };
+
+  // handle payment action
+  const handlePaymentAction = () => {
+    setPaymentLoading(true);
+    toast.loading("Please wait ....", { id: "payment" });
+    setTimeout(() => {
+      setPaymentLoading(false);
+      toast.success("Your purchase was successful", { id: "payment" });
+      dispatch(clearShoppingCart());
+      navigate("/payment/successfully", { replace: true });
+    }, 2000);
   };
 
   // carts price and total info
@@ -98,8 +116,18 @@ const ShoppingCartSideBar = () => {
           total price : {priceAll.toFixed(2)}
         </Typography>
         <Box component="div" className="flex mt-5 items-center justify-between">
-          <Button size="small" variant="contained" color="success">
-            Payment
+          <Button
+            onClick={handlePaymentAction}
+            disabled={paymentLoading}
+            size="small"
+            variant="contained"
+            color="success"
+          >
+            {paymentLoading ? (
+              <CircularProgress size={24} color="success" />
+            ) : (
+              "Payment"
+            )}
           </Button>
           <Button
             size="small"
