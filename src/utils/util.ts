@@ -5,5 +5,5 @@ export const calculateCartsTotalCount = (carts: ICart[]): number => {
 
 // calculate all price cart
 export const calculateCartsPrice = (carts: ICart[]): number => {
-  return carts.reduce((per, curr) => per + curr.price, 0);
+  return carts.reduce((per, curr) => per + curr.price * curr.quantity, 0);
 };

@@ -14,11 +14,15 @@ interface ICartState {
 
 // cart initialState
 const initialState: ICartState = {
-  carts: JSON.parse(localStorage.getItem("carts")!) ?? [],
-  totalCount:
-    calculateCartsTotalCount(JSON.parse(localStorage.getItem("carts")!)) ?? 0,
-  priceAll:
-    calculateCartsPrice(JSON.parse(localStorage.getItem("carts")!)) ?? 0,
+  carts: !!localStorage.getItem("carts")
+    ? JSON.parse(localStorage.getItem("carts")!)
+    : [],
+  totalCount: !!localStorage.getItem("carts")
+    ? calculateCartsTotalCount(JSON.parse(localStorage.getItem("carts")!))
+    : 0,
+  priceAll: !!localStorage.getItem("carts")
+    ? calculateCartsPrice(JSON.parse(localStorage.getItem("carts")!))
+    : 0,
 };
 
 // cartSlice
@@ -77,9 +81,21 @@ const cartSlice = createSlice({
       localStorage.setItem("carts", JSON.stringify(state.carts));
       toast.success("decreament product successfull");
     },
+    // remove all carts
+    clearShoppingCart: (state) => {
+      state.carts = [];
+      state.priceAll = 0;
+      state.totalCount = 0;
+      localStorage.removeItem("carts");
+    },
   },
 });
 
-export const { addToCart, removeCart, increamentProduct, decreamentProduct } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeCart,
+  increamentProduct,
+  decreamentProduct,
+  clearShoppingCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,10 +1,19 @@
-import { Box, Grid, IconButton, Paper, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  IconButton,
+  Paper,
+  Typography,
+} from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store/store";
 import ShoppingCart from "../../components/carts/ShoppingCart";
 import { v4 as uuidv4 } from "uuid";
+import ShoppingCartSideBar from "../../components/ShoppingCartSideBar";
+import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
 
 const ShoppingCartPage = () => {
   // carts
@@ -17,23 +26,44 @@ const ShoppingCartPage = () => {
           ShoppingCart
         </Typography>
         <Link to={"/"}>
-          <IconButton>
+          <IconButton
+            sx={(theme) => ({
+              color: theme.palette.mode === "dark" ? "white" : "black",
+            })}
+          >
             <ArrowForwardIcon />
           </IconButton>
         </Link>
       </Box>
-      <Box component="div" className="mt-7">
-        <Grid container gap={2}>
-          <Grid xs={12} md={8} item className="flex flex-col gap-y-2">
-            {carts.map((cart: ICart) => (
-              <ShoppingCart data={cart} key={uuidv4()} />
-            ))}
+      {carts.length > 0 ? (
+        <Box component="div" className="mt-7">
+          <Grid container gap={2}>
+            <Grid xs={12} md={8} item className="flex flex-col gap-y-2">
+              {carts.map((cart: ICart) => (
+                <ShoppingCart data={cart} key={uuidv4()} />
+              ))}
+            </Grid>
+            <Grid xs={12} md={3.8} item>
+              <ShoppingCartSideBar />
+            </Grid>
           </Grid>
-          <Grid xs={12} md={3.8} item>
-            Two
-          </Grid>
-        </Grid>
-      </Box>
+        </Box>
+      ) : (
+        <Box
+          component="div"
+          className="flex items-center justify-center p-4 flex-col mt-10"
+        >
+          <ProductionQuantityLimitsIcon className="size-32" />
+          <Typography variant="body1">
+            You have no products in the shopping cart
+          </Typography>
+          <Link to={"/"}>
+            <Button color="success" variant="contained" className="mt-4">
+              Back To Shop
+            </Button>
+          </Link>
+        </Box>
+      )}
     </Paper>
   );
 };
