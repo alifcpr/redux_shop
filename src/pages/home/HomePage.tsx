@@ -1,4 +1,4 @@
-import { Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
+import { Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { useEffect } from "react";
@@ -6,8 +6,7 @@ import { fetchAllProduct } from "../../redux/slices/productsSlice";
 import ProductCart from "../../components/carts/ProductCart";
 import { v4 as uuidv4 } from "uuid";
 import Search from "../../components/Search";
-import ProductFilter from "../../components/filters/ProductFilter";
-import { categoryList } from "../../constant";
+import HomePageSideBar from "../../components/HomePageSideBar";
 
 const HomePage = () => {
   // dispatch
@@ -53,30 +52,13 @@ const HomePage = () => {
         </Paper>
       </Grid>
       <Grid
-        className="relative order-first md:order-last"
+        className="relative order-first lg:order-last"
         item
         xs={12}
-        md={1.897}
+        md={1.8}
       >
         <Paper className="sticky top-3 left-0 p-1">
-          <Box
-            sx={(theme) => ({
-              backgroundColor:
-                theme.palette.mode === "dark"
-                  ? theme.palette.secondary.main
-                  : theme.palette.secondary.light,
-            })}
-            className="rounded-md p-2"
-          >
-            <Typography variant="body1" className="mb-2">
-              Category{" "}
-            </Typography>
-            <ProductFilter
-              btnClasses="flex items-center justify-start px-2"
-              className="flex flex-col items-end gap-y-2"
-              filters={categoryList}
-            />
-          </Box>
+          <HomePageSideBar />
         </Paper>
       </Grid>
     </Grid>
