@@ -1,4 +1,4 @@
-import { Grid, Paper, Skeleton, Typography } from "@mui/material";
+import { Box, Grid, Paper, Skeleton, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store/store";
 import { useEffect } from "react";
@@ -6,6 +6,8 @@ import { fetchAllProduct } from "../../redux/slices/productsSlice";
 import ProductCart from "../../components/carts/ProductCart";
 import { v4 as uuidv4 } from "uuid";
 import Search from "../../components/Search";
+import ProductFilter from "../../components/filters/ProductFilter";
+import { categoryList } from "../../constant";
 
 const HomePage = () => {
   // dispatch
@@ -22,7 +24,7 @@ const HomePage = () => {
   }, []);
 
   return (
-    <Grid container rowGap={2} className="mt-4">
+    <Grid container gap={2} className="mt-4">
       <Grid item xs={12} md={10}>
         <Paper className="p-3 grid grid-cols-12 gap-4">
           <div className="w-full col-span-12">
@@ -50,8 +52,32 @@ const HomePage = () => {
           )}
         </Paper>
       </Grid>
-      <Grid item xs={12} md={2}>
-        <Paper className="p-3">One</Paper>
+      <Grid
+        className="relative order-first md:order-last"
+        item
+        xs={12}
+        md={1.897}
+      >
+        <Paper className="sticky top-3 left-0 p-1">
+          <Box
+            sx={(theme) => ({
+              backgroundColor:
+                theme.palette.mode === "dark"
+                  ? theme.palette.secondary.main
+                  : theme.palette.secondary.light,
+            })}
+            className="rounded-md p-2"
+          >
+            <Typography variant="body1" className="mb-2">
+              Category{" "}
+            </Typography>
+            <ProductFilter
+              btnClasses="flex items-center justify-start px-2"
+              className="flex flex-col items-end gap-y-2"
+              filters={categoryList}
+            />
+          </Box>
+        </Paper>
       </Grid>
     </Grid>
   );
