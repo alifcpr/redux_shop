@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { fetchAllProduct } from "../../redux/slices/productsSlice";
 import ProductCart from "../../components/carts/ProductCart";
 import { v4 as uuidv4 } from "uuid";
+import Search from "../../components/Search";
 
 const HomePage = () => {
   // dispatch
@@ -24,6 +25,9 @@ const HomePage = () => {
     <Grid container rowGap={2} className="mt-4">
       <Grid item xs={12} md={10}>
         <Paper className="p-3 grid grid-cols-12 gap-4">
+          <div className="w-full col-span-12">
+            <Search query="search" />
+          </div>
           {/* show loading */}
           {loading &&
             !error &&
