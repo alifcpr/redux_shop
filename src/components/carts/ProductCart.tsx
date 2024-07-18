@@ -29,24 +29,22 @@ const ProductCart = ({ data }: ProductCartProps) => {
   // dispatch
   const dispatch: AppDispatch = useDispatch();
 
-  // add product to cart
-  const handleAddProductToCart = () => {
-    dispatch(addToCart(data));
-  };
-
-  // remove product from cart
-  const handleRemoveProductFromCart = () => {
-    dispatch(removeCart(data));
-  };
-
-  // increament product in cart
-  const handleIncreamentProduct = () => {
-    dispatch(increamentProduct(data));
-  };
-
-  // decreament product in cart
-  const handleDecreamentProduct = () => {
-    dispatch(decreamentProduct(data));
+  // handle product all actions
+  const handleProductAction = (type: string) => {
+    switch (type) {
+      case "ADD":
+        dispatch(addToCart(data));
+        break;
+      case "REMOVE":
+        dispatch(removeCart(data));
+        break;
+      case "INCREAMENT":
+        dispatch(increamentProduct(data));
+        break;
+      case "DECREAMENT":
+        dispatch(decreamentProduct(data));
+        break;
+    }
   };
 
   return (
@@ -106,22 +104,31 @@ const ProductCart = ({ data }: ProductCartProps) => {
             className="flex mt-4 items-center justify-between"
           >
             {currentProduct.quantity > 1 ? (
-              <Button onClick={handleDecreamentProduct} variant="contained">
+              <Button
+                onClick={() => handleProductAction("DECREAMENT")}
+                variant="contained"
+              >
                 <RemoveIcon />
               </Button>
             ) : (
-              <Button onClick={handleRemoveProductFromCart} variant="contained">
+              <Button
+                onClick={() => handleProductAction("REMOVE")}
+                variant="contained"
+              >
                 <DeleteIcon />
               </Button>
             )}
             <Typography variant="body1">{currentProduct.quantity}</Typography>
-            <Button onClick={handleIncreamentProduct} variant="contained">
+            <Button
+              onClick={() => handleProductAction("INCREAMENT")}
+              variant="contained"
+            >
               <AddIcon />
             </Button>
           </Box>
         ) : (
           <Button
-            onClick={handleAddProductToCart}
+            onClick={() => handleProductAction("ADD")}
             color="primary"
             className="mt-4"
             variant="contained"
