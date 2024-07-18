@@ -75,15 +75,27 @@ const HomePage = () => {
               />
             ))}
           {/* show error */}
-          {!loading && error && <Typography variant="h1">{error}</Typography>}
-          {/* show item */}
-          {!loading && productList && productList.length > 0 ? (
-            productList.map((product) => (
-              <ProductCart key={uuidv4()} data={product} />
-            ))
-          ) : (
-            <Typography variant="h1">There is not any item</Typography>
+          {!loading && error && (
+            <Typography variant="h1" className="col-span-12 my-10 text-center">
+              {error}
+            </Typography>
           )}
+          {/* show item */}
+          {!loading &&
+            !error &&
+            productList &&
+            (productList.length > 0 ? (
+              productList.map((product) => (
+                <ProductCart key={uuidv4()} data={product} />
+              ))
+            ) : (
+              <Typography
+                variant="h1"
+                className="col-span-12 text-center my-10"
+              >
+                There is not any item
+              </Typography>
+            ))}
         </Paper>
       </Grid>
       <Grid
