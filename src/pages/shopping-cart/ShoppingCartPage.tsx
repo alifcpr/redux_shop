@@ -20,8 +20,11 @@ const ShoppingCartPage = () => {
   const { carts } = useSelector((state: RootState) => state.carts);
 
   return (
-    <Paper className="max-w-full xl:max-w-6xl mx-auto p-2 mt-3">
-      <Box component="div" className="flex items-center justify-between">
+    <Box
+      component="div"
+      className="max-w-full xl:max-w-6xl min-h-[calc(100vh-17vh)] mx-auto p-2 mt-3"
+    >
+      <Box component="div" className="flex  items-center justify-between">
         <Typography variant="h1" className="mx-auto">
           ShoppingCart
         </Typography>
@@ -64,7 +67,7 @@ const ShoppingCartPage = () => {
           </Link>
         </Box>
       )}
-    </Paper>
+    </Box>
   );
 };
 

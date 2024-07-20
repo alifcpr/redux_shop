@@ -89,7 +89,7 @@ const ProductDetailPage = () => {
               ? theme.palette.secondary.main
               : theme.palette.secondary.light,
         })}
-        className="max-w-full xl:max-w-6xl mx-auto p-5 rounded-md mt-3 md:mt-10"
+        className="max-w-full xl:max-w-6xl mx-auto rounded-md p-5 mt-3 md:mt-10"
       >
         <Box component="div" className="flex justify-end mb-3">
           <Link to={"/"}>

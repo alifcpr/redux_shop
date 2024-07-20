@@ -35,7 +35,7 @@ const PaymentSuccessfullyPage = () => {
   return (
     <Box
       component="div"
-      className="flex flex-col gap-y-3 mt-10 px-10 items-center justify-center h-full w-full"
+      className="flex min-h-[calc(100vh-20vh)]  flex-col gap-y-3 mt-10 px-10 items-center justify-center h-full w-full"
     >
       <CheckCircleIcon
         className="size-56"

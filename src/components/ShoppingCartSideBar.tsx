@@ -106,10 +106,10 @@ const ShoppingCartSideBar = () => {
         sx={(theme) => ({
           backgroundColor:
             theme.palette.mode === "dark"
-              ? theme.palette.secondary.dark
+              ? theme.palette.secondary.main
               : theme.palette.secondary.light,
         })}
-        className="p-2 flex flex-col rounded-md"
+        className="p-3 flex flex-col rounded-md"
       >
         <Typography variant="body1">total product : {totalCount}</Typography>
         <Typography variant="body1">
