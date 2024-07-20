@@ -5,7 +5,7 @@ export const getAllProductApi = async () => {
   return data;
 };
 
-export const getProductById = async (id: string) => {
+export const getProductById = async (id: number) => {
   const { data } = await axiosService.get<IProduct>(`/products/${id}`);
   return data;
 };

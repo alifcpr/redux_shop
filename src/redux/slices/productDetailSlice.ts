@@ -4,20 +4,31 @@ import { getProductById } from "../../services/product.services";
 // handle fetch product by id
 export const fetchProductById = createAsyncThunk(
   "productDetail/fetchProductById",
-  async (id: string) => getProductById(id)
+  async (id: number) => getProductById(id)
 );
 
 // product detail type
 interface IProductDetailState {
   loading: boolean;
-  product: IProduct | {};
+  product: IProduct;
   error: string;
 }
 
 // productDetail initialState
 const initialState: IProductDetailState = {
   loading: false,
-  product: {},
+  product: {
+    id: 0,
+    title: "",
+    price: 0,
+    description: "",
+    category: "",
+    image: "",
+    rating: {
+      rate: 0,
+      count: 0
+    }
+  },
   error: "",
 };
 
