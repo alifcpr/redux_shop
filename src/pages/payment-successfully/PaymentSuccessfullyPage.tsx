@@ -2,8 +2,12 @@ import { Box, Button, Typography } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const PaymentSuccessfullyPage = () => {
+  // page title
+  useTitle("Payment");
+
   // counter state
   const [counter, setCounter] = useState<number>(10);
 

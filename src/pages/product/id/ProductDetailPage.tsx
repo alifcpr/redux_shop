@@ -15,6 +15,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import { addToCart } from "../../../redux/slices/cartSlice";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import useTitle from "../../../hooks/useTitle";
 
 const ProductDetailPage = () => {
   // get product id from url
@@ -30,6 +31,9 @@ const ProductDetailPage = () => {
 
   // destructure productDetail
   const { image, title, description, rating, category, price } = product;
+
+  // page title
+  useTitle(title);
 
   // select all shoppingCarts
   const { carts } = useSelector((state: RootState) => state.carts);

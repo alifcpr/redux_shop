@@ -8,8 +8,12 @@ import { v4 as uuidv4 } from "uuid";
 import Search from "../../components/Search";
 import HomePageSideBar from "../../components/HomePageSideBar";
 import { useSearchParams } from "react-router-dom";
+import useTitle from "../../hooks/useTitle";
 
 const HomePage = () => {
+  // page title
+  useTitle("Home Page");
+
   // searchParams
   const [searchParams] = useSearchParams();
 
