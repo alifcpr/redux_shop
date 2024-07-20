@@ -1,5 +1,6 @@
 import { Button } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 interface ProductFilterProps extends React.HTMLProps<HTMLDivElement> {
   filters: { title: string; value: string }[];
@@ -11,7 +12,6 @@ const ProductFilter = ({
   btnClasses,
   ...props
 }: ProductFilterProps) => {
-    
   // searchParams
   const [searchParams, setSearchParams] = useSearchParams();
   // category query
@@ -36,6 +36,7 @@ const ProductFilter = ({
           <Button
             className={`w-full ${btnClasses}`}
             onClick={() => setQueryHandler(filter.value)}
+            key={uuidv4()}
             sx={(theme) => ({
               color:
                 theme.palette.mode === "dark"
