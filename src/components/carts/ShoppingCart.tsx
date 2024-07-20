@@ -1,4 +1,15 @@
-import { Box, IconButton, Rating, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Rating,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -11,6 +22,7 @@ import {
 } from "../../redux/slices/cartSlice";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
+import { Link } from "react-router-dom";
 
 interface ShoppingCartProps {
   data: ICart;
@@ -18,7 +30,7 @@ interface ShoppingCartProps {
 
 const ShoppingCart = ({ data }: ShoppingCartProps) => {
   // cart data
-  const { title, image, rating, quantity, price } = data;
+  const { title, image, rating, quantity, price, id } = data;
 
   // dispatch
   const dispatch: AppDispatch = useDispatch();
@@ -39,8 +51,7 @@ const ShoppingCart = ({ data }: ShoppingCartProps) => {
   };
 
   return (
-    <Box
-      component="div"
+    <Card
       className="rounded-md p-3 flex flex-col md:flex-row items-center gap-x-3"
       sx={(theme) => ({
         backgroundColor:
@@ -49,38 +60,44 @@ const ShoppingCart = ({ data }: ShoppingCartProps) => {
             : theme.palette.secondary.light,
       })}
     >
-      <Box component="div" className="w-24 h-20 overflow-hidden rounded-md">
-        <LazyLoadImage
-          src={image}
-          alt={title}
-          className="w-full h-full object-fit object-center"
-        />
-      </Box>
-      <Box
-        component="div"
-        className="flex flex-col items-center md:items-center md:flex-row md:justify-between w-full gap-y-2"
-      >
-        <Box
-          component="div"
-          className="flex flex-col items-center  md:items-start"
-        >
-          <Tooltip title={title} placement="top">
-            <Typography
-              className="mt-2 max-w-[80vw] md:mt-0 md:max-w-[20vw] truncate"
-              variant="body1"
+      <Link className="w-full" to={`/product/${id}`}>
+        <CardActionArea className="flex flex-col justify-center md:flex-row">
+          <CardMedia
+            component="div"
+            className="w-24 h-20 overflow-hidden rounded-md mx-auto"
+          >
+            <LazyLoadImage
+              src={image}
+              alt={title}
+              className="w-full h-full object-fit object-center"
+            />
+          </CardMedia>
+          <CardContent className="flex flex-col items-center md:items-center md:flex-row md:justify-between w-full gap-y-2">
+            <Box
+              component="div"
+              className="flex flex-col items-center  md:items-start"
             >
-              {title}
-            </Typography>
-          </Tooltip>
-          <Box component="div" className="flex items-center gap-x-1">
-            <Rating value={rating.rate} precision={0.5} readOnly />
-            <Typography variant="caption">{rating.count}</Typography>
-          </Box>
-          <Box component="div" className="mt-2 flex items-center gap-x-1">
-            <LocalOfferIcon className="size-5" />
-            <Typography variant="body1">{price}</Typography>
-          </Box>
-        </Box>
+              <Tooltip title={title} placement="top">
+                <Typography
+                  className="mt-2 max-w-[80vw] md:mt-0 md:max-w-[20vw] truncate"
+                  variant="body1"
+                >
+                  {title}
+                </Typography>
+              </Tooltip>
+              <Box component="div" className="flex items-center gap-x-1">
+                <Rating value={rating.rate} precision={0.5} readOnly />
+                <Typography variant="caption">{rating.count}</Typography>
+              </Box>
+              <Box component="div" className="mt-2 flex items-center gap-x-1">
+                <LocalOfferIcon className="size-5" />
+                <Typography variant="body1">{price}</Typography>
+              </Box>
+            </Box>
+          </CardContent>
+        </CardActionArea>
+      </Link>
+      <CardActions>
         <Box component="div" className="flex items-center gap-x-4">
           {quantity > 1 ? (
             <IconButton
@@ -120,8 +137,8 @@ const ShoppingCart = ({ data }: ShoppingCartProps) => {
             <AddIcon />
           </IconButton>
         </Box>
-      </Box>
-    </Box>
+      </CardActions>
+    </Card>
   );
 };
 
