@@ -64,7 +64,7 @@ const HomePage = () => {
   return (
     <Grid container gap={2} className="mt-4">
       <Grid item xs={12} md={10}>
-        <Paper className="p-3 grid grid-cols-12 min-h-screen gap-4">
+        <Paper className="p-3 grid grid-cols-12 min-h-screen place-content-start gap-4">
           <div className="w-full col-span-12">
             <Search query="search" />
           </div>
