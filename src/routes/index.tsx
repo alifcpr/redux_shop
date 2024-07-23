@@ -9,10 +9,10 @@ const ShoppingCartPage = lazy(
   () => import("../pages/shopping-cart/ShoppingCartPage")
 );
 const ProductDetailPage = lazy(
-  () => import("../pages/payment-successfully/PaymentSuccessfullyPage")
+  () => import("../pages/product/id/ProductDetailPage")
 );
 const PaymentSuccessfullyPage = lazy(
-  () => import("../pages/product/id/ProductDetailPage")
+  () => import("../pages/payment-successfully/PaymentSuccessfullyPage")
 );
 
 const PageLoading = () => {
@@ -25,7 +25,7 @@ const PageLoading = () => {
             ? theme.palette.secondary.main
             : theme.palette.primary.main,
       })}
-      className="min-w-full flex opacity-70 items-center justify-center min-h-screen absolute top-0 left-0 z-[9999]"
+      className="min-w-full flex  items-center justify-center min-h-screen absolute top-0 left-0 z-[9999]"
     >
       <CircularProgress color="warning" />
     </Box>
