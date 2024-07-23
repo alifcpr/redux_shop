@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Grid,
-  IconButton,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, Grid, IconButton, Typography } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
